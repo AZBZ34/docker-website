@@ -1,0 +1,21 @@
+version: "3.9"
+services:
+    sql-server-db:
+        networks:
+            test:
+        container_name: sql-server-db
+        image: mcr.microsoft.com/mssql/server:2019-latest
+        ports:
+            - "1433:1433"
+        environment:
+            SA_PASSWORD: "Super_Duper_Password"
+            ACCEPT_EULA: "Y"
+    web:
+        networks:
+            test:
+        build: .
+        ports:
+          - "80:8000"
+networks:
+    test:
+        driver: bridge

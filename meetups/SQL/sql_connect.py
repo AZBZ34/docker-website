@@ -1,27 +1,23 @@
 def connect(connect_database):
     import pyodbc
+    from . import host_info
+
+    driver = 'ODBC Driver 17 for SQL Server'
+    host = 'sql-server-db'
+    print("Attempting to connect [" + driver + "]", "to [" + host + "].")
+
+    mdf_conn = pyodbc.connect(driver=driver,
+                              host=host,
+                              database=connect_database,
+                              user='sa',
+                              password='Super_Duper_Password',
+                              )
+    db_cursor = mdf_conn.cursor()
 
     if connect_database == 'master':
-        mdf_conn = pyodbc.connect(DSN='DockerMaster',
-                                  UID='sa',
-                                  PWD='Super_Duper_Password',
-                                  autocommit='True',
-                                  )
+        mdf_conn.autocommit = True
+        return db_cursor
 
-    if connect_database == 'honey-pot':
-        mdf_conn = pyodbc.connect(DSN='DockerHoneyPot',
-                                  UID='sa',
-                                  PWD='Super_Duper_Password',
-                                  autocommit='True',
-                                  )
-
-    # mdf_conn = pyodbc.connect(driver='{DataDirect 8.0 SQL Server Wire Protocol}',
-    #                           host='LAPTOP-7R4E0IOG',
-    #                           database=connect_database,
-    #                           user='sa',
-    #                           password='Super_Duper_Password',
-    #                           )
-    db_cursor = mdf_conn.cursor()
     return db_cursor
 
 
