@@ -1,0 +1,25 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>All Meetups</title>
+    <link rel="stylesheet" href="{% static 'meetups/styles/base.css' %}">
+</head>
+<body>
+    <header>
+        <h1>You have attempted to access this website from {{ ip }}.</h1>
+        <h2>This is located in {{ country_name }}, {{ state }}, {{ city }} ({{ postal }}).</h2>
+        <p>{{ longitude }}, {{ latitude }}</p>
+        {% if show_meetups %}
+            {% for meetup_item in meetups %}
+            <p>{{ meetup_item.title }}</p>
+            {% endfor %}
+        {% else %}
+            <h2>No meetups found.</h2>
+        {% endif %}
+    </header>
+    <main>
+    </main>
+</body>
+</html>
